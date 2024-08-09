@@ -19,16 +19,6 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
-  <!-- <script src="//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
-   -->
-  <!-- 脚本文件 -->
-<script type="module">
-  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
-
-  init({
-    // options
-  });
-</script>
   <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -51,7 +41,7 @@
   
   <p class="links">
     
-    <a target="_blank" rel="noopener" href="https://cybercolyce.cn">
+    <a href="https://cybercolyce.cn">
       <img src="/images/links/about.png" alt="Owner">
     </a>
     
@@ -190,8 +180,7 @@
   <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
   </script>
 <script type="module">
-  import { init } from '@waline/client';
-  import '@waline/client/style';
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   init({
     el: '#waline',
     placeholder: '请文明评论呀^_^',
