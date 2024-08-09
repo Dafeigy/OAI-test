@@ -19,7 +19,17 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
-  <script src="//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+   -->
+  <!-- 脚本文件 -->
+<script type="module">
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+  init({
+    // options
+  });
+</script>
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
@@ -146,23 +156,25 @@
   
   <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
   </script>
-  <script>
-    Waline({
-      el: '#waline',
-      placeholder: '请文明评论呀^_^',
-      avatar: 'mm',
-      visitor: true,
-      requiredFields: ['nick', 'mail'],
-      serverURL: 'https://waline-server-git-main-dafeigys-projects.vercel.app/',
-      emoji: [
-        '',
-        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
-        '',
-        '',
-        '',
-        '',
-      ]
-    });
+<script type="module">
+  import { init } from '@waline/client';
+  import '@waline/client/style';
+  init({
+    el: '#waline',
+    placeholder: '请文明评论呀^_^',
+    avatar: 'mm',
+    visitor: true,
+    requiredFields: ['nick', 'mail'],
+    serverURL: 'https://www.cybercolyce.space/',
+    emoji: [
+      '',
+      'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+      '',
+      '',
+      '',
+      '',
+    ]
+  });
   </script>
 </body>
 
