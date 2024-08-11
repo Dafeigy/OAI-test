@@ -81,8 +81,7 @@
 
   
   <article>
-    <p>这篇是使用WSL2下，使用Docker部署OAI核心网，并以RFSIM模式运行OAI基站和nrUE。这种使用方式一般是我在研究信令流程时使用的，同时你也可以在高层协议上使用这种方式来获取便捷的开发环境设置，毕竟不是所有人都喜欢Linux那个简陋甚至有点神秘的GUI界面。</p>
-<p>不过在我们开始前，需要你做一些设置：</p>
+    <p>这篇介绍在WSL2下，使用Docker部署OAI核心网，并以RFSIM模式运行OAI基站和nrUE。这种使用方式一般是我在研究信令流程时使用的，同时你也可以在高层协议上使用这种方式来获取便捷的开发环境设置；如果你关注的是底层物理层，那么同样可以通过修改部分运行参数进行实现。想要实现如下的内容，请先确保你成功实现了<a href="/OAI-CN5G-Docker">OAI CN5G DOCKER的部署</a> 以及 <a href="/OAI-RAN-build-run">OAI RAN的构建</a>。WSL2请自行安装，这里不再赘述，该流程可同样在正常的Linux环境下复现，不过在我们开始前，需要你做一些设置：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sysctl net.ipv4.conf.all.forwarding=1</span><br><span class="line"><span class="built_in">sudo</span> iptables -P FORWARD ACCEPT</span><br></pre></td></tr></table></figure>
 
 <p>这样就可以保证搭建的nrUE和gNB、核心网之间的流量正常转发。</p>
