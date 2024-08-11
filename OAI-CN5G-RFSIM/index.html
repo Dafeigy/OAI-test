@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title>部署参考：OAI CN5G Docker 和 OAI RFSIM | Openairinterface Archives</title>
+  <meta name="google-site-verification" content="[object Object]" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta itemprop="name" content="Openairinterface Archives" />
+  <meta itemprop="description" content="" />
+  <meta itemprop="image" content="https://pic.imgdb.cn/item/66b57eafd9c307b7e909094a.webp" />
+  <link rel="shortcut icon" href="https://pic.imgdb.cn/item/66b57eafd9c307b7e909094a.webp" type="image/x-icon">
+  <!-- keywords and description -->
+  
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
+  <script src="//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <div id="container">
+    <header>
+  <div class="site-title">
+    <a href="/">
+      Openairinterface Archives
+    </a>
+  </div>
+  
+  
+  <p class="links">
+    
+    <a href="https://cybercolyce.cn">
+      <img src="/images/links/about.png" alt="About">
+    </a>
+    
+    <a target="_blank" rel="noopener" href="https://github.com/dafeigy">
+      <img src="/images/links/github.png" alt="Github">
+    </a>
+    
+    <a href="tencent://message/?uin=1070642765">
+      <img src="/images/links/qq.png" alt="QQ">
+    </a>
+    
+    <a href="mailto:1070642765@qq.com">
+      <img src="/images/links/email.png" alt="Email">
+    </a>
+    
+  </p>
+  
+</header>
+    <div id="main">
+      <article class="post">
+  <h3 class="date">
+  <time datetime="2024-08-11T10:27:30.005Z">
+    Aug 11, 2024
+  </time>
+</h3>
+  <h1>部署参考：OAI CN5G Docker 和 OAI RFSIM</h1>
+  <p class="post-info">
+  
+  
+  <a href="/OAI-CN5G-RFSIM/#waline" class="post-info-item comment-count waline-comment-count" id="/OAI-CN5G-RFSIM/">获取中...</a>
+  <span class="post-info-item view-count waline-visitor-count" id="/OAI-CN5G-RFSIM/">获取中...</span>
+  
+</p>
+  
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2%E5%8F%82%E8%80%83/" rel="tag">部署参考</a></li></ul>
+
+  
+  <article>
+    <p>这篇是使用WSL2下，使用Docker部署OAI核心网，并以RFSIM模式运行OAI基站和nrUE。这种使用方式一般是我在研究信令流程时使用的，同时你也可以在高层协议上使用这种方式来获取便捷的开发环境设置，毕竟不是所有人都喜欢Linux那个简陋甚至有点神秘的GUI界面。</p>
+<p>不过在我们开始前，需要你做一些设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sysctl net.ipv4.conf.all.forwarding=1</span><br><span class="line"><span class="built_in">sudo</span> iptables -P FORWARD ACCEPT</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以保证搭建的nrUE和gNB、核心网之间的流量正常转发。</p>
+<h2 id="OAI-CN5G-配置"><a href="#OAI-CN5G-配置" class="headerlink" title="OAI CN5G 配置"></a>OAI CN5G 配置</h2><p>在启动CN5G的Docker镜像前，我们需要对核心网网元进行一定的设置，并添加订阅用户。首先需要修改的配置文件位于<code>conf/config.yaml</code>，我们需要修改的内容有：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">amf:</span></span><br><span class="line">  <span class="attr">pid_directory:</span> <span class="string">&quot;/var/run&quot;</span></span><br><span class="line">	<span class="string">...</span></span><br><span class="line">  <span class="attr">served_guami_list:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mcc:</span> <span class="number">466</span> 	<span class="string">//</span> <span class="string">和UE信息对应上即可</span></span><br><span class="line">      <span class="attr">mnc:</span> <span class="number">92</span> 	<span class="string">//</span> <span class="string">和UE信息对应上即可</span></span><br><span class="line">      <span class="attr">amf_region_id:</span> <span class="number">01</span></span><br><span class="line">      <span class="attr">amf_set_id:</span> <span class="number">001</span></span><br><span class="line">      <span class="attr">amf_pointer:</span> <span class="number">01</span></span><br><span class="line">  <span class="attr">plmn_support_list:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mcc:</span> <span class="number">466</span></span><br><span class="line">      <span class="attr">mnc:</span> <span class="number">92</span></span><br><span class="line">      <span class="attr">tac:</span> <span class="number">0x0001</span></span><br><span class="line">      <span class="attr">nssai:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="meta">*embb_slice1</span></span><br><span class="line">        <span class="bullet">-</span> <span class="meta">*embb_slice2</span></span><br><span class="line">        <span class="bullet">-</span> <span class="meta">*embb_slice3</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里我会修改PLMN的参数，<code>46692</code>对应的是台湾的中华电信运营商，这也是我的商用UE中的白卡写入的信息。</p>
+<p>下一步我们需要修改其中一块切片信息，找到<code>embb_slice1</code>的定义，添加切片ID:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">snssais:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;embb_slice1</span></span><br><span class="line">    <span class="attr">sst:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">sd:</span> <span class="number">010203</span> <span class="string">//添加十六进制</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;embb_slice2</span></span><br><span class="line">    <span class="attr">sst:</span> <span class="number">1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;embb_slice3</span></span><br><span class="line">    <span class="attr">sst:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>同时还需要修改<code>database/oai_db.sql</code>中的注册UE信息，把我们的UE信息仿照OAI给出的案例填补上去，包含两部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--</span><br><span class="line">-- Dumping data for table `SessionManagementSubscriptionData`</span><br><span class="line">--</span><br><span class="line">INSERT INTO `SessionManagementSubscriptionData` (`ueid`, `servingPlmnid`, `singleNssai`, `dnnConfigurations`) VALUES</span><br><span class="line">(&#x27;466920000000001&#x27;, &#x27;46692&#x27;, &#x27;&#123;\&quot;sst\&quot;: 1, \&quot;sd\&quot;: \&quot;66051\&quot;&#125;&#x27;,&#x27;&#123;\&quot;oai\&quot;:&#123;\&quot;pduSessionTypes\&quot;:&#123; \&quot;defaultSessionType\&quot;: \&quot;IPV4\&quot;&#125;,\&quot;sscModes\&quot;: &#123;\&quot;defaultSscMode\&quot;: \&quot;SSC_MODE_1\&quot;&#125;,\&quot;5gQosProfile\&quot;: &#123;\&quot;5qi\&quot;: 6,\&quot;arp\&quot;:&#123;\&quot;priorityLevel\&quot;: 15,\&quot;preemptCap\&quot;: \&quot;NOT_PREEMPT\&quot;,\&quot;preemptVuln\&quot;:\&quot;PREEMPTABLE\&quot;&#125;,\&quot;priorityLevel\&quot;:1&#125;,\&quot;sessionAmbr\&quot;:&#123;\&quot;uplink\&quot;:\&quot;1000Mbps\&quot;, \&quot;downlink\&quot;:\&quot;1000Mbps\&quot;&#125;,\&quot;staticIpAddress\&quot;:[&#123;\&quot;ipv4Addr\&quot;: \&quot;12.1.1.104\&quot;&#125;]&#125;,\&quot;ims\&quot;:&#123;\&quot;pduSessionTypes\&quot;:&#123; \&quot;defaultSessionType\&quot;: \&quot;IPV4V6\&quot;&#125;,\&quot;sscModes\&quot;: &#123;\&quot;defaultSscMode\&quot;: \&quot;SSC_MODE_1\&quot;&#125;,\&quot;5gQosProfile\&quot;: &#123;\&quot;5qi\&quot;: 2,\&quot;arp\&quot;:&#123;\&quot;priorityLevel\&quot;: 15,\&quot;preemptCap\&quot;: \&quot;NOT_PREEMPT\&quot;,\&quot;preemptVuln\&quot;:\&quot;PREEMPTABLE\&quot;&#125;,\&quot;priorityLevel\&quot;:1&#125;,\&quot;sessionAmbr\&quot;:&#123;\&quot;uplink\&quot;:\&quot;1000Mbps\&quot;, \&quot;downlink\&quot;:\&quot;1000Mbps\&quot;&#125;&#125;&#125;&#x27;);</span><br><span class="line">-- --------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>还有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--</span><br><span class="line">-- Dumping data for table `AuthenticationSubscription`</span><br><span class="line">--</span><br><span class="line">-- ......</span><br><span class="line">INSERT INTO `AuthenticationSubscription` (`ueid`, `authenticationMethod`, `encPermanentKey`, `protectionParameterId`, `sequenceNumber`, `authenticationManagementField`, `algorithmId`, `encOpcKey`, `encTopcKey`, `vectorGenerationInHss`, `n5gcAuthMethod`, `rgAuthenticationInd`, `supi`) VALUES</span><br><span class="line">    (&#x27;466920000000001&#x27;, &#x27;5G_AKA&#x27;, &#x27;00112233445566778899aabbccddeeff&#x27;, &#x27;00112233445566778899aabbccddeeff&#x27;, &#x27;&#123;\&quot;sqn\&quot;: \&quot;000000000000\&quot;, \&quot;sqnScheme\&quot;: \&quot;NON_TIME_BASED\&quot;, \&quot;lastIndexes\&quot;: &#123;\&quot;ausf\&quot;: 0&#125;&#125;&#x27;, &#x27;8000&#x27;, &#x27;milenage&#x27;, &#x27;000102030405060708090a0b0c0d0e0f&#x27;, NULL, NULL, NULL, NULL, &#x27;466920000000001&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>随后请在当前目录下运行 <code>docker compose up -d</code> 以启动所有的网元容器：</p>
+<p><img src="https://pic.imgdb.cn/item/66b8af74d9c307b7e98e85b2.png" alt="运行成功案例"></p>
+<p>你可以通过使用<code>docker logs -f oai-amf</code>命令来查看 <code>AMF</code> 网元运行的信息。</p>
+<p><img src="https://pic.imgdb.cn/item/66b8af20d9c307b7e98e44e5.png" alt="image-20240811203119051"></p>
+<h2 id="OAI-gNB-配置"><a href="#OAI-gNB-配置" class="headerlink" title="OAI gNB  配置"></a>OAI gNB  配置</h2><p>需要修改的内容比较多。你可以在<code>targets/PROJECTS/GENERIC-NR-5GC/CONF</code>新建一个文件，比如说<code>band78-106.conf</code>来存储配置信息，里面的内容，可以先直接复制<code>gnb.sa.band78.fr1.106PRB.usrpb210.conf</code>下的全部内容，然后我们再进行修改。第一步，修改PLMN为46692，同时网络切片ID也更改与sql中一致。：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plmn_list = (&#123; mcc = 466; mnc = 92; mnc_length = 2; snssaiList = (&#123; sst = 1; sd=0x010203;&#125;) &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>接下来你可以运行了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/openairinterface5g/cmake_targets/ran_build/build</span><br><span class="line"><span class="built_in">sudo</span> ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/band78-106.conf --gNBs.[0].min_rxtxtime 6 --rfsim --sa</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic.imgdb.cn/item/66b8b91ad9c307b7e99e503a.png"></p>
+<p>你可以注意到gNB information那一栏中出现了我们的运行的gNB，说明已经启动成功。</p>
+<h2 id="OAI-nrUE-配置"><a href="#OAI-nrUE-配置" class="headerlink" title="OAI nrUE 配置"></a>OAI nrUE 配置</h2><p>nrUE的配置我推荐直接修改 <code>openair3/UICC/usim_interface.c</code>中的内容</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/</span></span><br><span class="line"><span class="comment">/*                                            configuration parameters for the rfsimulator device                                                                              */</span></span><br><span class="line"><span class="comment">/*   optname                     helpstr                     paramflags           XXXptr                               defXXXval                          type         numelt  */</span></span><br><span class="line"><span class="comment">/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> UICC_PARAMS_DESC &#123;                                              \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;imsi&quot;</span>,             <span class="string">&quot;USIM IMSI\n&quot;</span>,          0,         .strptr=&amp;uicc-&gt;imsiStr,              .defstrval=<span class="string">&quot;466920000000001&quot;</span>,           TYPE_STRING,    0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;nmc_size&quot;</span>          <span class="string">&quot;number of digits in NMC&quot;</span>, 0,      .iptr=&amp;uicc-&gt;nmc_size,               .defintval=2,         TYPE_INT,       0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;key&quot;</span>,              <span class="string">&quot;USIM Ki\n&quot;</span>,            0,         .strptr=&amp;uicc-&gt;keyStr,               .defstrval=<span class="string">&quot;00112233445566778899aabbccddeeff&quot;</span>, TYPE_STRING,    0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;opc&quot;</span>,              <span class="string">&quot;USIM OPc\n&quot;</span>,           0,         .strptr=&amp;uicc-&gt;opcStr,               .defstrval=<span class="string">&quot;000102030405060708090a0b0c0d0e0f&quot;</span>, TYPE_STRING,    0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;amf&quot;</span>,              <span class="string">&quot;USIM amf\n&quot;</span>,           0,         .strptr=&amp;uicc-&gt;amfStr,               .defstrval=<span class="string">&quot;8000&quot;</span>,    TYPE_STRING,    0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;sqn&quot;</span>,              <span class="string">&quot;USIM sqn\n&quot;</span>,           0,         .strptr=&amp;uicc-&gt;sqnStr,               .defstrval=<span class="string">&quot;000000&quot;</span>,  TYPE_STRING,    0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;dnn&quot;</span>,              <span class="string">&quot;UE dnn (apn)\n&quot;</span>,       0,         .strptr=&amp;uicc-&gt;dnnStr,               .defstrval=<span class="string">&quot;oai&quot;</span>,     TYPE_STRING,    0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;nssai_sst&quot;</span>,        <span class="string">&quot;UE nssai\n&quot;</span>,           0,         .iptr=&amp;uicc-&gt;nssai_sst,              .defintval=1,    TYPE_INT,    0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;nssai_sd&quot;</span>,         <span class="string">&quot;UE nssai\n&quot;</span>,           0,         .iptr=&amp;uicc-&gt;nssai_sd,               .defintval=0x010203,  TYPE_INT,       0 &#125;, \</span></span><br><span class="line"><span class="meta">      &#123;<span class="string">&quot;imeisv&quot;</span>,           <span class="string">&quot;IMEISV\n&quot;</span>,             0,         .strptr=&amp;uicc-&gt;imeisvStr,            .defstrval=<span class="string">&quot;6754567890123413&quot;</span>,           TYPE_STRING,    0 &#125;, \</span></span><br><span class="line"><span class="meta">  &#125;;</span></span><br></pre></td></tr></table></figure>
+
+<p>修改的点和核心网中的对应上就好，主要修改的内容有 ：</p>
+<ul>
+<li><code>imsi</code>: 修改成 <code>466920000000001</code>，我的常用ID。</li>
+<li><code>opc</code>: <code>000102030405060708090a0b0c0d0e0f</code></li>
+<li><code>key</code>: <code>00112233445566778899aabbccddeeff</code></li>
+<li><code>nssai_sd</code>: <code>0x010203</code></li>
+</ul>
+<p>这些和你核心网内写入的数据对应上即可。当一切配置好后，请运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/openairinterface5g/cmake_targets</span><br><span class="line"><span class="built_in">sudo</span> ./build_oai -w USRP --gNB --nrUE --ninja</span><br></pre></td></tr></table></figure>
+
+<p>编译通过后，请执行下述命令启动nrUE：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/openairinterface5g/cmake_targets/ran_build/build</span><br><span class="line"><span class="built_in">sudo</span> ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --sa --rfsim</span><br></pre></td></tr></table></figure>
+
+<p>你应该可以在AMF的日志中找到其成功接入的信息，如图所示：</p>
+<p><img src="https://pic.imgdb.cn/item/66b8b963d9c307b7e99e9637.png" alt="nrUE 成功接入"></p>
+<p>注意到UEs’ Information中出现了我们的UE，说明运行成功。新建一个终端，输入<code>ifconfig</code>命令查看是否出现一个新的网口 <code>oaitun_ue1</code>，并尝试通过该接口上网：</p>
+<p><img src="https://pic.imgdb.cn/item/66b8b9bbd9c307b7e99eeedb.png"></p>
+<p>如果能成功ping通，则说明部署成功，你可以在这个环境下开展你的开发或学习任务了🥰</p>
+
+  </article>
+  
+</article>
+
+
+<div id="waline"></div>
+
+    </div>
+  </div>
+  <footer>
+  
+  
+  <p id="busuanzi_container_site_pv">
+    本站访问量 <span id="busuanzi_value_site_pv">获取中...</span>
+  </p>
+  
+  <p>
+    Made by <a target="_blank" rel="noopener" href="https://hexo.io">Cybersh1t</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/syy11cn/hexo-theme-linear">Linear</a> 
+  </p>
+</footer>
+  
+  <canvas id="c_n6" width="314" height="731" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;"></canvas>
+  <script z-index="-1" color="f3f3f3" opacity="0.8" count="10" src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <script type="module">
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+  init({
+      el: '#waline',
+      placeholder: '请文明评论呀^_^',
+      avatar: 'mm',
+      visitor: true,
+      requiredFields: ['nick', 'mail'],
+      serverURL: 'https://www.cybercolyce.space/',
+      emoji: [
+        '',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+        '',
+        '',
+        '',
+        '',
+      ]
+    });
+  
+  </script>
+  <script>
+    Waline({
+      el: '#waline',
+      placeholder: '请文明评论呀^_^',
+      avatar: 'mm',
+      visitor: true,
+      requiredFields: ['nick', 'mail'],
+      serverURL: 'https://www.cybercolyce.space/',
+      emoji: [
+        '',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+        '',
+        '',
+        '',
+        '',
+      ]
+    });
+  </script>
+</body>
+
+</html>
