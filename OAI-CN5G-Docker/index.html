@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title>构建指南：OAI CN5G Docker | Openairinterface Archives</title>
+  <meta name="google-site-verification" content="[object Object]" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta itemprop="name" content="Openairinterface Archives" />
+  <meta itemprop="description" content="" />
+  <meta itemprop="image" content="https://pic.imgdb.cn/item/66b57eafd9c307b7e909094a.webp" />
+  <link rel="shortcut icon" href="https://pic.imgdb.cn/item/66b57eafd9c307b7e909094a.webp" type="image/x-icon">
+  <!-- keywords and description -->
+  
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
+  <script src="//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <div id="container">
+    <header>
+  <div class="site-title">
+    <a href="/">
+      Openairinterface Archives
+    </a>
+  </div>
+  
+  
+  <p class="links">
+    
+    <a href="https://cybercolyce.cn">
+      <img src="/images/links/about.png" alt="About">
+    </a>
+    
+    <a target="_blank" rel="noopener" href="https://github.com/dafeigy">
+      <img src="/images/links/github.png" alt="Github">
+    </a>
+    
+    <a href="tencent://message/?uin=1070642765">
+      <img src="/images/links/QQ.png" alt="QQ">
+    </a>
+    
+    <a href="mailto:1070642765@qq.com">
+      <img src="/images/links/email.png" alt="Email">
+    </a>
+    
+  </p>
+  
+</header>
+    <div id="main">
+      <article class="post">
+  <h3 class="date">
+  <time datetime="2024-08-09T12:05:40.846Z">
+    Aug 9, 2024
+  </time>
+</h3>
+  <h1>构建指南：OAI CN5G Docker</h1>
+  <p class="post-info">
+  
+  
+  <a href="/OAI-CN5G-Docker/#waline" class="post-info-item comment-count waline-comment-count" id="/OAI-CN5G-Docker/">获取中...</a>
+  <span class="post-info-item view-count waline-visitor-count" id="/OAI-CN5G-Docker/">获取中...</span>
+  
+</p>
+  
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/" rel="tag">构建指南</a></li></ul>
+
+  
+  <article>
+    <p>本篇内容介绍如何使用Docker拉取OAI CN5G镜像。在进行此操作前，请先确保你的设备已安装Docker以及Docker Compose等相关应用，如果还未安装，请参考<a href="#%E9%99%84%E5%BD%95%EF%BC%9A%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85Docker">附录</a>内容。</p>
+<h2 id="下载OAI-CN5G配置文件"><a href="#下载OAI-CN5G配置文件" class="headerlink" title="下载OAI CN5G配置文件"></a>下载OAI CN5G配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget -O ~/oai-cn5g.zip https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g</span><br><span class="line">unzip ~/oai-cn5g.zip</span><br><span class="line"><span class="built_in">mv</span> ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g/doc/tutorial_resources/oai-cn5g ~/oai-cn5g</span><br><span class="line"><span class="built_in">rm</span> -r ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g ~/oai-cn5g.zip</span><br></pre></td></tr></table></figure>
+
+<h2 id="拉取-OAI-CN5G镜像"><a href="#拉取-OAI-CN5G镜像" class="headerlink" title="拉取 OAI CN5G镜像"></a>拉取 OAI CN5G镜像</h2><p>在上一步完成并安装Docker后，使用如下命令拉去Docker镜像。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/oai-cn5g</span><br><span class="line">docker compose pull</span><br></pre></td></tr></table></figure>
+
+<p>如果这一步出现了拉取失败或者超时，请<strong>善用搜索引擎</strong>添加国内可用的Docker镜像源。下列内容可能会失效，请自行更改镜像源。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/docker</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/docker/daemon.json &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    &quot;registry-mirrors&quot;: [</span></span><br><span class="line"><span class="string">        &quot;https://docker.1panel.live&quot;,</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl start docker;</span><br></pre></td></tr></table></figure>
+
+<h2 id="启停以及查看OAI-CN5G"><a href="#启停以及查看OAI-CN5G" class="headerlink" title="启停以及查看OAI CN5G"></a>启停以及查看OAI CN5G</h2><h3 id="启动OAI-CN5G"><a href="#启动OAI-CN5G" class="headerlink" title="启动OAI CN5G"></a>启动OAI CN5G</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/oai-cn5g</span><br><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure>
+
+<h3 id="停止OAI-CN5G"><a href="#停止OAI-CN5G" class="headerlink" title="停止OAI CN5G"></a>停止OAI CN5G</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/oai-cn5g</span><br><span class="line">docker compose down</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker基础命令"><a href="#Docker基础命令" class="headerlink" title="Docker基础命令"></a>Docker基础命令</h2><h3 id="查看当前运行容器"><a href="#查看当前运行容器" class="headerlink" title="查看当前运行容器"></a>查看当前运行容器</h3><p>使用<code>docker ps -a</code> 查看当前运行的所有容器：</p>
+<p><img src="https://pic.imgdb.cn/item/66b45ab1d9c307b7e9ac1742.png" alt="image-20240808134134222"></p>
+<p>当出现上述内容，则说明OAI CN5G启动正常。</p>
+<h3 id="查看某一容器的运行日志"><a href="#查看某一容器的运行日志" class="headerlink" title="查看某一容器的运行日志"></a>查看某一容器的运行日志</h3><p>使用<code>docker logs -f &lt;CONTAINER_NAMES&gt;</code>查看容器运行日志。其中，<code>&lt;CONTAINER_NAMES&gt;</code> 为使用 <code>docekr ps </code>中最后一列 <code>NAMES</code> 的文本。如欲查看<code>oai-amf</code> 的运行日志，则使用:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f oai-amf</span><br></pre></td></tr></table></figure>
+
+<p>即可查看，<code>-f</code>选项表示为跟随日志输出，即显示内容会是最新的日志内容。其他日志查看参数请参考 <a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-logs-command.html">Docker logs 命令</a> 的相关参考教程。</p>
+<h2 id="附录：使用代理无法下载安装Docker"><a href="#附录：使用代理无法下载安装Docker" class="headerlink" title="附录：使用代理无法下载安装Docker"></a>附录：使用代理无法下载安装Docker</h2><p>2024年6月初，国内广大Docker镜像站关闭，如果先前已经安装了Docker那么可以使用其他镜像站拉取Docker镜像。如果先前没有安装Docker，这里给出当前可行的一个基于腾讯云的解决方案：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install ca-certificates curl</span><br><span class="line"><span class="built_in">sudo</span> install -m 0755 -d /etc/apt/keyrings</span><br><span class="line"><span class="built_in">sudo</span> curl -fsSL https://mirrors.cloud.tencent.com/docker-ce/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.asc</span><br><span class="line"><span class="built_in">echo</span>   <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.asc] https://mirrors.cloud.tencent.com/docker-ce/linux/ubuntu/ \</span></span><br><span class="line"><span class="string">  <span class="subst">$(. /etc/os-release &amp;&amp; echo <span class="string">&quot;<span class="variable">$VERSION_CODENAME</span>&quot;</span>)</span> stable&quot;</span> |   <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
+
+<p>添加源和GPG Key后，使用如下命令更新软件源并安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br><span class="line"><span class="built_in">sudo</span> systemctl status docker</span><br></pre></td></tr></table></figure>
+
+<p>最后把当前用户添加到Docker权限组里并重启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -a -G docker $(<span class="built_in">whoami</span>)</span><br><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure>
+  </article>
+  
+</article>
+
+
+<div id="waline"></div>
+
+    </div>
+  </div>
+  <footer>
+  
+  
+  <p id="busuanzi_container_site_pv">
+    本站访问量 <span id="busuanzi_value_site_pv">获取中...</span>
+  </p>
+  
+  <p>
+    Made by <a target="_blank" rel="noopener" href="https://hexo.io">Cybersh1t</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/syy11cn/hexo-theme-linear">Linear</a> 
+  </p>
+</footer>
+  
+  <canvas id="c_n6" width="314" height="731" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;"></canvas>
+  <script z-index="-1" color="f3f3f3" opacity="0.8" count="10" src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <script type="module">
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+  init({
+      el: '#waline',
+      placeholder: '请文明评论呀^_^',
+      avatar: 'mm',
+      visitor: true,
+      requiredFields: ['nick', 'mail'],
+      serverURL: 'https://www.cybercolyce.space/',
+      emoji: [
+        '',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+        '',
+        '',
+        '',
+        '',
+      ]
+    });
+  
+  </script>
+  <script>
+    Waline({
+      el: '#waline',
+      placeholder: '请文明评论呀^_^',
+      avatar: 'mm',
+      visitor: true,
+      requiredFields: ['nick', 'mail'],
+      serverURL: 'https://www.cybercolyce.space/',
+      emoji: [
+        '',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+        '',
+        '',
+        '',
+        '',
+      ]
+    });
+  </script>
+</body>
+
+</html>

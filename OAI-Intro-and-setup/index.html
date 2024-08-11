@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title>基本配置：OAI Intro &amp; Setup | Openairinterface Archives</title>
+  <meta name="google-site-verification" content="[object Object]" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta itemprop="name" content="Openairinterface Archives" />
+  <meta itemprop="description" content="" />
+  <meta itemprop="image" content="https://pic.imgdb.cn/item/66b57eafd9c307b7e909094a.webp" />
+  <link rel="shortcut icon" href="https://pic.imgdb.cn/item/66b57eafd9c307b7e909094a.webp" type="image/x-icon">
+  <!-- keywords and description -->
+  
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
+  <script src="//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js" integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <div id="container">
+    <header>
+  <div class="site-title">
+    <a href="/">
+      Openairinterface Archives
+    </a>
+  </div>
+  
+  
+  <p class="links">
+    
+    <a href="https://cybercolyce.cn">
+      <img src="/images/links/about.png" alt="About">
+    </a>
+    
+    <a target="_blank" rel="noopener" href="https://github.com/dafeigy">
+      <img src="/images/links/github.png" alt="Github">
+    </a>
+    
+    <a href="tencent://message/?uin=1070642765">
+      <img src="/images/links/QQ.png" alt="QQ">
+    </a>
+    
+    <a href="mailto:1070642765@qq.com">
+      <img src="/images/links/email.png" alt="Email">
+    </a>
+    
+  </p>
+  
+</header>
+    <div id="main">
+      <article class="post">
+  <h3 class="date">
+  <time datetime="2024-08-09T12:05:40.849Z">
+    Aug 9, 2024
+  </time>
+</h3>
+  <h1>基本配置：OAI Intro & Setup</h1>
+  <p class="post-info">
+  
+  
+  <a href="/OAI-Intro-and-setup/#waline" class="post-info-item comment-count waline-comment-count" id="/OAI-Intro-and-setup/">获取中...</a>
+  <span class="post-info-item view-count waline-visitor-count" id="/OAI-Intro-and-setup/">获取中...</span>
+  
+</p>
+  
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Installation/" rel="tag">Installation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OAI/" rel="tag">OAI</a></li></ul>
+
+  
+  <article>
+    <h2 id="OAI介绍"><a href="#OAI介绍" class="headerlink" title="OAI介绍"></a>OAI介绍</h2><p><a target="_blank" rel="noopener" href="https://openairinterface.org/">Openairinterface</a> (OAI) 是一个汇聚全球移动通信开发者的组织 Openairinterface Software Alliance (OSA) 旗下的一个团队，他们的目标是构建开源的无线蜂窝接入网络（RAN）和核心网络（CN）技术。如果你先前没有接触过这些概念，那么你可以简单的认为OAI是一个构建<strong>通过使用软件定义无线电（SDR）设备实现4&#x2F;5G移动蜂窝通信的平台</strong>，或者再简单点说：使用其代码构建的应用，可以让你“成为”像中国移动&#x2F;中国联通等服务运营商，打造个性化但同时符合3GPP标准的移动通信服务。<del>你可以查看【】来简单直观地观察自己搭建5G端到端平台。</del></p>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV14zaNeeEjr&page=1&as_wide=1&high_quality=1&danmaku=0"
+             allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+现在你应该对OAI的使用场景有一定的了解了，OAI是一个开源的硬件和软件无线技术平台，**包含了模拟、仿真和实时**三个部分，可以用于部署符合3GPP R15标准下的无线蜂窝网络。OAI是由EURECOM建立的，并在成立之初就强调其“开源”生态，这使得无论是工业界的工程师，还是高校里进行研究的团队都可以使用其代码进行移动通信平台的构建，并在其基础上进行原型研发与验证，同时也为工业界和学术界提供了良好的沟通机制，以便双方更好进行技术研发。
+
+<p>OAI目前可以<strong>支持4G LTE、5G NR的应用</strong>，不仅仅包括无线空口，还包括无线接入网和核心网。本指南写于2024年8月，当前OAI已全面支持3GPP R15下的协议规范，并逐步向R16以及未来6G的演进。一般情况下，OAI的仿真和模拟不需要配备具体的SDR硬件实体，只需要一个标准的Linux计算机设备（x86&#x2F;ARM 架构均可）即可使用，这意味着如果要进行算法方面的验证，你可以在一个Linux环境下（真实Linux，虚拟机甚至WSL2）就可以完成你的实验平台搭建；如果要构建实时的移动通信系统，那么你还需要额外配备射频实验设备，如Ettus&#x2F;NI 的USRP设备使用，并视情况配备天线以及变频器（毫米波频段）。</p>
+<h2 id="项目支持"><a href="#项目支持" class="headerlink" title="项目支持"></a>项目支持</h2><ul>
+<li>OAI的核心网相关组件的代码可以在<a target="_blank" rel="noopener" href="https://gitlab.eurecom.fr/oai/cn5g">这里</a>找到。如果你的开发不涉及核心网相关的部分，那么你可以考虑<a target="_blank" rel="noopener" href="https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed">使用Docker部署核心网</a>即可，其具体的搭建流程请参考<a target="_blank" rel="noopener" href="https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/-/blob/master/docs/DEPLOY_HOME.md">How to do a container-based simple deployment</a>的官方文档。</li>
+<li>OAI的RAN相关代码可以在<a target="_blank" rel="noopener" href="https://gitlab.eurecom.fr/oai/openairinterface5g">这里</a>找到，你可以通过参考项目的<code>doc</code>文件夹下的内容寻找符合你需求的参考文档，一般来说主要参考<code>NR_SA_Tutorial_COTS_UE.md</code>，<code>NR_SA_Tutorial_OAI_CN5G.md</code>以及<code>NR_SA_Tutorial_OAI_nrUE.md</code>这三篇即可。</li>
+</ul>
+<h2 id="配置工作环境"><a href="#配置工作环境" class="headerlink" title="配置工作环境"></a>配置工作环境</h2><p>无论是进行开发工作还是生产使用，推荐以下应用以获取更好的使用体验。</p>
+<ul>
+<li><strong>IDE工具</strong>：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code</a>，好用、扩展性强的代码编辑器，通过添加扩展可支持几乎所有语言的代码提示与自动补全。</li>
+<li><strong>终端文本编辑工具</strong>：Vim。简单易上手，不再需要依赖GUI界面即可对文本进行编辑。</li>
+<li><strong>GNU Debugger</strong>（可选）：C&#x2F;C++ 代码调试工具，建议配合VSCode以获得最佳开发体验。</li>
+<li><strong>SSH 配置</strong>（可选）：远程开发必备工具，使用<code>openssh-server</code> 和 <code>openssh-client</code> 获取最好的远程开发体验。</li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="下载代码失败怎么办"><a href="#下载代码失败怎么办" class="headerlink" title="下载代码失败怎么办"></a>下载代码失败怎么办</h3><p>请使用代理或其他科学上网手段，咨询你身边的朋友，这里不提供具体的翻墙服务推荐。需要注意一点的是，在终端模拟器中使用网络相关的服务需要设置你的代理服务，具体操作如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> https_proxy=192.168.0.101:7890 <span class="comment">#192.168.0.101 是运行代理服务如clash的主机IP，7890是这个服务的端口，此处和实际情况对应即可</span></span><br><span class="line"><span class="built_in">export</span> http_proxy=192.168.0.101:7890</span><br><span class="line"><span class="built_in">export</span> all_proxy=192.168.0.101:7890</span><br></pre></td></tr></table></figure>
+
+<p>并且请注意：<strong>该代理设置仅在当前终端下有效</strong>，如果这个终端关闭&#x2F;另开一个新的终端，需要在新的终端里重新输入代理设置才可使用代理进行相关的服务。</p>
+<h3 id="OAI运行失败或需要OAI技术支持"><a href="#OAI运行失败或需要OAI技术支持" class="headerlink" title="OAI运行失败或需要OAI技术支持"></a>OAI运行失败或需要OAI技术支持</h3><p>与一般的开源项目不同，在运行项目时遇到问题不是直接反馈到Issue界面，而是使用<a target="_blank" rel="noopener" href="https://gitlab.eurecom.fr/oai/openairinterface5g/-/wikis/MailingList">Mailing Lists</a>。Issue页面供大家提供Bug反馈与功能开发的讨论，运行项目相关等其他一系列繁琐细碎的问题请使用openair5g-user或devel的服务：</p>
+<ol>
+<li><p>Mailing Lists的 <a target="_blank" rel="noopener" href="https://lists.eurecom.fr/sympa/arc/openair5g-user">【User归档】</a>或<a target="_blank" rel="noopener" href="https://lists.eurecom.fr/sympa/arc/openair5g-devel">【Devel归档】</a>中先搜索是否有类似的问题。在初次点开网页时，网站设定了反爬虫的设定，点击 <code>I am not a spammer </code>的选项即可。</p>
+<p><img src="https://pic.imgdb.cn/item/66b2fb97d9c307b7e95a5749.gif" alt="I am not a spammer"></p>
+</li>
+<li><p>使用Advanced Search对你的问题进行搜索，在最下方的<code>Extend search field</code> 中按住Shift键选择搜索的月份，这里建议是每6个月为一个间隔进行搜索，如果一次性搜索全部内容会搜索得非常慢；同时过早的问题可能在较新版本中已经被修复。在上方的输入框输入要搜索的问题，随后搜索即可。</p>
+<p><img src="https://pic.imgdb.cn/item/66b2fe97d9c307b7e95d392c.gif_" alt="Use Adavance Search"></p>
+</li>
+</ol>
+
+  </article>
+  
+</article>
+
+
+<div id="waline"></div>
+
+    </div>
+  </div>
+  <footer>
+  
+  
+  <p id="busuanzi_container_site_pv">
+    本站访问量 <span id="busuanzi_value_site_pv">获取中...</span>
+  </p>
+  
+  <p>
+    Made by <a target="_blank" rel="noopener" href="https://hexo.io">Cybersh1t</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/syy11cn/hexo-theme-linear">Linear</a> 
+  </p>
+</footer>
+  
+  <canvas id="c_n6" width="314" height="731" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;"></canvas>
+  <script z-index="-1" color="f3f3f3" opacity="0.8" count="10" src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <script type="module">
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+  init({
+      el: '#waline',
+      placeholder: '请文明评论呀^_^',
+      avatar: 'mm',
+      visitor: true,
+      requiredFields: ['nick', 'mail'],
+      serverURL: 'https://www.cybercolyce.space/',
+      emoji: [
+        '',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+        '',
+        '',
+        '',
+        '',
+      ]
+    });
+  
+  </script>
+  <script>
+    Waline({
+      el: '#waline',
+      placeholder: '请文明评论呀^_^',
+      avatar: 'mm',
+      visitor: true,
+      requiredFields: ['nick', 'mail'],
+      serverURL: 'https://www.cybercolyce.space/',
+      emoji: [
+        '',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+        '',
+        '',
+        '',
+        '',
+      ]
+    });
+  </script>
+</body>
+
+</html>
