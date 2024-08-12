@@ -82,10 +82,9 @@
   
   <article>
     <h2 id="OAI介绍"><a href="#OAI介绍" class="headerlink" title="OAI介绍"></a>OAI介绍</h2><p><a target="_blank" rel="noopener" href="https://openairinterface.org/">Openairinterface</a> (OAI) 是一个汇聚全球移动通信开发者的组织 Openairinterface Software Alliance (OSA) 旗下的一个团队，他们的目标是构建开源的无线蜂窝接入网络（RAN）和核心网络（CN）技术。如果你先前没有接触过这些概念，那么你可以简单的认为OAI是一个构建<strong>通过使用软件定义无线电（SDR）设备实现4&#x2F;5G移动蜂窝通信的平台</strong>，或者再简单点说：使用其代码构建的应用，可以让你“成为”像中国移动&#x2F;中国联通等服务运营商，打造个性化但同时符合3GPP标准的移动通信服务。你可以查看下方视频简单直观地观察自己搭建5G端到端平台：</p>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1qPYqerEEo&page=1&as_wide=1&high_quality=1&danmaku=0"
-             allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
-现在你应该对OAI的使用场景有一定的了解了，OAI是一个开源的硬件和软件无线技术平台，**包含了模拟、仿真和实时**三个部分，可以用于部署符合3GPP R15标准下的无线蜂窝网络。OAI是由EURECOM建立的，并在成立之初就强调其“开源”生态，这使得无论是工业界的工程师，还是高校里进行研究的团队都可以使用其代码进行移动通信平台的构建，并在其基础上进行原型研发与验证，同时也为工业界和学术界提供了良好的沟通机制，以便双方更好进行技术研发。
-
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1qPYqerEEo&page=1&as_wide=1&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="420" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+             
+<p>现在你应该对OAI的使用场景有一定的了解了，OAI是一个开源的硬件和软件无线技术平台，<strong>包含了模拟、仿真和实时运行</strong>三个部分，可以用于部署符合3GPP R15标准下的无线蜂窝网络。OAI是由EURECOM建立的，并在成立之初就强调其“开源”生态，这使得无论是工业界的工程师，还是高校里进行研究的团队都可以使用其代码进行移动通信平台的构建，并在其基础上进行原型研发与验证，同时也为工业界和学术界提供了良好的沟通机制，以便双方更好进行技术研发。</p>
 <p>OAI目前可以<strong>支持4G LTE、5G NR的应用</strong>，不仅仅包括无线空口，还包括无线接入网和核心网。本指南写于2024年8月，当前OAI已全面支持3GPP R15下的协议规范，并逐步向R16以及未来6G的演进。一般情况下，OAI的仿真和模拟不需要配备具体的SDR硬件实体，只需要一个标准的Linux计算机设备（x86&#x2F;ARM 架构均可）即可使用，这意味着如果要进行算法方面的验证，你可以在一个Linux环境下（真实Linux，虚拟机甚至WSL2）就可以完成你的实验平台搭建；如果要构建实时的移动通信系统，那么你还需要额外配备射频实验设备，如Ettus&#x2F;NI 的USRP设备使用，并视情况配备天线以及变频器（毫米波频段）。</p>
 <h2 id="项目支持"><a href="#项目支持" class="headerlink" title="项目支持"></a>项目支持</h2><ul>
 <li>OAI的核心网相关组件的代码可以在<a target="_blank" rel="noopener" href="https://gitlab.eurecom.fr/oai/cn5g">这里</a>找到。如果你的开发不涉及核心网相关的部分，那么你可以考虑<a target="_blank" rel="noopener" href="https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed">使用Docker部署核心网</a>即可，其具体的搭建流程请参考<a target="_blank" rel="noopener" href="https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/-/blob/master/docs/DEPLOY_HOME.md">How to do a container-based simple deployment</a>的官方文档。</li>
