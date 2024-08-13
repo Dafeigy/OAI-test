@@ -71,8 +71,8 @@
     <div id="main">
       <article class="post">
   <h3 class="date">
-  <time datetime="2024-08-09T12:05:40.845Z">
-    Aug 9, 2024
+  <time datetime="2024-08-13T02:28:24.527Z">
+    Aug 13, 2024
   </time>
 </h3>
   <h1>构建指南：OAI RAN</h1>
@@ -94,7 +94,9 @@
 <h3 id="构建-OAI-gNB"><a href="#构建-OAI-gNB" class="headerlink" title="构建 OAI gNB"></a>构建 OAI gNB</h3><p>注意，很多指令需要以sudo权限运行。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Get openairinterface5g source code</span></span><br><span class="line">git <span class="built_in">clone</span> https://gitlab.eurecom.fr/oai/openairinterface5g.git ~/openairinterface5g</span><br><span class="line"><span class="built_in">cd</span> ~/openairinterface5g</span><br><span class="line">git checkout develop</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install OAI dependencies</span></span><br><span class="line"><span class="built_in">cd</span> ~/openairinterface5g/cmake_targets</span><br><span class="line"><span class="built_in">sudo</span> ./build_oai -I</span><br><span class="line"></span><br><span class="line"><span class="comment"># Build OAI gNB</span></span><br><span class="line"><span class="built_in">cd</span> ~/openairinterface5g/cmake_targets</span><br><span class="line"><span class="built_in">sudo</span> ./build_oai -w USRP --ninja --gNB -C</span><br></pre></td></tr></table></figure>
 
-<p>值得注意的是，在最后一部分构建OAI gNB时，最后的<code>-C</code>选项为首次编译时使用。如果之前已有过成功的编译，那么在下一次的编译时可以去掉<code>-C</code>以提高编译速度，具体原因请参考“<a href="#%E5%85%B6%E4%BB%96%E6%9E%84%E5%BB%BA%E9%80%89%E9%A1%B9">其他构建选项</a>”部分内容。</p>
+<p>值得注意的是，在最后一部分构建OAI gNB时，最后的<code>-C</code>选项为首次编译时使用。如果之前已有过成功的编译，那么在下一次的编译时可以去掉<code>-C</code>以提高编译速度，具体原因请参考“<a href="#%E5%85%B6%E4%BB%96%E6%9E%84%E5%BB%BA%E9%80%89%E9%A1%B9">其他构建选项</a>”部分内容。如果你还需要再构建<code>nrUE</code>，那么修改上述命令的最后一行为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./build_oai -w USRP --ninja --gNB --nrUE</span><br></pre></td></tr></table></figure>
+
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
 <li><p><strong>无法克隆代码</strong>：有两种可能，其一是网络连接不稳定，挂上梯子或代理再尝试下载；其二是OAI服务器进行维护，一般持续时间为6个小时，但较为少见。</p>
 </li>
