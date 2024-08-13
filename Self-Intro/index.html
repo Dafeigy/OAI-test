@@ -3,7 +3,14 @@
 
 <head>
   
-  <title>🔺三年OAI的使用/开发者的Intro | Openairinterface Archives</title>
+  <!-- fancybox support -->
+  
+    
+<link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css">
+
+  
+  <title>🔝三年OAI的使用/开发者的Intro | Openairinterface Archives</title>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <meta name="google-site-verification" content="[object Object]" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,11 +71,11 @@
     <div id="main">
       <article class="post">
   <h3 class="date">
-  <time datetime="2024-08-09T13:05:52.677Z">
-    Aug 9, 2024
+  <time datetime="2024-08-13T02:28:24.527Z">
+    Aug 13, 2024
   </time>
 </h3>
-  <h1>🔺三年OAI的使用/开发者的Intro</h1>
+  <h1>🔝三年OAI的使用/开发者的Intro</h1>
   <p class="post-info">
   
   
@@ -79,9 +86,29 @@
   
   
   <article>
-    <p>Hi，我是一名国内某211院校通信工程专业的学生。目前的研究方向是AI+通信和通信感知一体化。我从研一开始接触移动通信和3GPP标准，并在研一下学期开始接触、了解、研究、开发 Openairinterface 的RAN物理层的相关代码。在此之前我对移动通信乃至通信原理了解甚少，因为我的主要兴趣是AI，更具体一点是强化学习和深度学习的可解释性研究，在读研之前我的所有学习重心都集中在AI这一侧，所以对通信相关的表述若有错误还请大家评论区多多指正。</p>
-<p><img src="https://ghchart.rshah.org/dafeigy" alt="Dafeigy&#39;s Github chart"></p>
-<p>目前我已在某知名日企的中国研究院实习一年有余，全程参与了其中的通感一体化多个实物Demo的开发与展示，并作为项目唯二开发者之一，主要承担基于<strong>OAI平台的5G端到端实验平台搭建</strong>、各种<strong>无线感知算法调研与部分算法复现</strong>、<strong>通感一体化原型设计与验证</strong>、<strong>数据采集与处理分析</strong>、<strong>开发项目配套工具链</strong>以及<strong>深度学习服务器</strong>维护等工作，同时也会配合另一位开发者进行AI中的<strong>神经网络模型结构设计</strong>的和训练方式讨论并进行<strong>工程实现</strong>。</p>
+    <p>Hi👋我是一名国内某211院校通信工程专业的学生，目前的研究方向是AI+通信和通信感知一体化。我从研一开始接触移动通信和3GPP标准，并在研一下学期开始接触、了解、研究、开发 Openairinterface 的RAN物理层的相关代码。在此之前我对移动通信乃至通信原理了解甚少，主要兴趣是AI中深度强化学习和深度学习的可解释性研究，由于在读研之前我的所有学习重心都集中在AI这一侧，所以对通信相关的表述若有错误还请大家评论区多多指正。</p>
+<p><img src="https://ghchart.rshah.org/dafeigy" alt="Dafeigy's Github chart" /></p>
+<p>目前我已在某知名日企的中国研究院实习一年有余，全程参与了其中的通感一体化多个实物Demo的开发与展示，并作为项目唯二开发者之一，主要承担基于<strong>OAI平台的5G端到端实验平台搭建</strong>、各种<strong>无线感知算法调研与部分算法复现</strong>、<strong>通感一体化原型设计与验证</strong>、<strong>数据采集与处理分析</strong>、<strong>开发项目配套工具链</strong>以及<strong>深度学习服务器</strong>维护等工作，同时也会配合另一位开发者进行AI中的<strong>神经网络模型结构设计</strong>的和训练方式讨论并进行<strong>工程实现</strong>。下面是我工作期间的项目：</p>
+<h2 id="oai-isac"><a class="markdownIt-Anchor" href="#oai-isac"></a> OAI-ISAC</h2>
+<p>这是基于OAI <code>tag 2023w20</code> 分支开发的通信感知一体化实物demo。在这个系统中，在原本的5G协议栈下实现了商用手机的接入，可以开展正常上网业务如观看在线直播、网络聊天等，同时还可以将商用手机放置在一个位置，将其作为“感知雷达”感知通信链路上的环境，进行如跌倒检测、动作识别、无穿戴式体感游戏的体验。</p>
+<p><img src="https://pic.imgdb.cn/item/66b98629d9c307b7e97ab83e.png" alt="OAI-ISAC" /></p>
+<p>该项目为C语言编写、CMake编译的项目，通过外界USRP软件定义无线电设备B210或N310，实现符合3GPP R15的5G协议的5G基站，并在此基础上开展了通信感知一体化的研究。相关研究成果已撰写论文，在论文公开后部分代码与训练数据集也会一并公开。</p>
+<h2 id="srs-front"><a class="markdownIt-Anchor" href="#srs-front"></a> SRS-Front</h2>
+<p>对接OAI-ISAC的可视化平台，开发目标是构建可以实时处理OAI-ISAC运行时产生的数据的可视化平台。该平台在设计时考虑到后续扩展与功能开发便捷性，故在技术选型中选择原生Html/CSS/Javascript 配合 Flask作为后端构建应用，不配备数据库。平台可运行在Linux/Windows/Mac系统，方便适配后续开发人员开发习惯，并预留了AI模型输入输出的相关接口以便在运行时进行分析。</p>
+<p><img src="https://pic.imgdb.cn/item/66b9a0d3d9c307b7e9976a90.png" alt="SRS-Front" /></p>
+<p>SRS-Front在开发之初就设计为<strong>易扩展、可快速修改</strong>的可视化平台，下面细分有多个分支，包括可以查看AI<strong>推理时输出Tensor、AI最终输出与历史结果</strong>的<code>DEBUG_MODE</code>分支，一个<strong>人员跌倒检测<code>NR-FALL</code>分支</strong>，一个支持<strong>在线采集数据并实时Fine-tune的<code>Online-finetune</code>分支</strong>，以及其他各种内部展览、与其他基站设备商联动适配的分支。以下是<code>DEBUG_MODE</code>分支的下的组件排布图，开发者与测试者可以直观地观测到输入输出数据的变化。该项目代码暂不开放仅供内部使用，后续或许会开放部分分支。</p>
+<p><img src="https://pic.imgdb.cn/item/66bac57cd9c307b7e93f84b8.png" alt="NR-IDEBUG_MODE" /></p>
+<h2 id="iprotf"><a class="markdownIt-Anchor" href="#iprotf"></a> IProtf</h2>
+<p>由于NR-ISAC旨在产品化，因此我们会更关注产品的实际测试性能，而不只是单纯用NR首个动作检测感知demo作为噱头来发表论文。在项目开发初期，我们针对神经网络的推理时间、输入数据处理的时间以及长时间小数据包的传输进行了测试，并在不同规格的CPU设备的情况下进行了测试。测试的工具即为我编写的IProtf，它是一个CSI信息生成工具，由Python编写，也有对应的Rust语言版本和Tauri编写的GUI版本。它是一个辅助开发的工具，用于发送指定的Proto信息至其他主机，并测试该主机的接收性能和丢包情况。它的使用语法近似打流工具iperf，在开始构建该项目时，是作为一个可行的数据增广的候选手段进行开发的，在后续的开发计划中，曾提出生成更符合真实场景的CSI数据以及在通感demo推理时输入数据丢包的替补信息源，但由于研发重点偏侧重不同，故讨论后开发完接收端性能测试功能后已停止开发。后续可能会使用生成式模型构建符合真实场景的CSI数据。</p>
+<p><img src="https://pic.imgdb.cn/item/66b99633d9c307b7e9880a4d.png" alt="IProtf" /></p>
+<h2 id="minikm"><a class="markdownIt-Anchor" href="#minikm"></a> MiniKM</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/Dafeigy/miniKM">MiniKM</a>其实是我的一个个人开发的工具<code>Remote-Key-Mapper</code>的功能阉割版，因为是阉割的，所以可以开源出来。它最初是为了在远程环境下和朋友进行Steam平台下的双人游戏研发的。在Windows平台中，部分支持本地双人游玩的游戏里用户的输入必须为键盘+手柄，这对我来讲非常困扰，因此开发了Remote-Key-Mapper，一个将用户键盘输入转换成手柄输入的工具，并且支持远程使用。MiniKM保留了远程操控的能力，并取消掉了键盘-手柄输入映射的功能，用于OAI-ISAC项目中AI的感知结果的一种控制，我使用MiniKM完成了控制街头霸王5和赛博朋克2077中的载具驾驶demo的展示。</p>
+<h2 id="prism"><a class="markdownIt-Anchor" href="#prism"></a> Prism</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/Dafeigy/Prism.git">Prsim </a>是一个基于Next-Chat-Web构建的 GPT 第三方客户端，主要是做了一些样式修改以让其更符合我的使用习惯，同时定制了上游的AI服务商的服务（在2024.7月前使用Coze的Discord反代免费使用，之后自行构建类似服务），如自定义的知识库、联网搜索插件、DALLE3生成图片等功能。构建该项目主要是为了方便部门内其他人员的交流开发，通过Docker部署和自动化的更新知识库，使用成员可以清楚的了解到项目的最新进展，或针对项目内容进行咨询，以加快开发/沟通的效率。使用界面如下：</p>
+<p><img src="https://s2.loli.net/2024/02/18/6TeksDf3mEAXLIg.png" alt="Dellyfish@Fantasea" /></p>
+<p>Prism的代码是遵循MIT协议开源的，你可以使用Docker部署到 Vercel 上并绑定自己的域名，比如我自己日常使用的 <code>Fantasea</code>就是基于Prism搭建的，对接了 SiliconFlow 的API以免费的价格使用国产大模型<code>QWen7B-Instruct</code>，你可以通过 <a target="_blank" rel="noopener" href="https://www.cybercolyce.icu/">🔗这个网站</a> 进行访问体验，并且支持PWA。</p>
+<h2 id="oai-wiki"><a class="markdownIt-Anchor" href="#oai-wiki"></a> OAI-Wiki</h2>
+<p><s>OAI代码的RAG。没有使用任何三方的向量数据库实现向量搜索，并对矩阵乘法进行优化，峰值性能超越 Numpy 30%</s>。还没想好怎么介绍，摸了</p>
 <p>部分文章需要密码访问，暂时还没想好怎么开放给其他人员。</p>
 
   </article>
@@ -107,6 +134,10 @@
   
   <canvas id="c_n6" width="314" height="731" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;"></canvas>
   <script z-index="-1" color="f3f3f3" opacity="0.8" count="10" src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  
+    <script type="text/javascript" src="/js/fancybox/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="/js/wrapImage.js"></script>
   
   <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
   </script>
