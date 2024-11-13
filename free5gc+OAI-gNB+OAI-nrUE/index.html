@@ -88,7 +88,7 @@
 
   
   <article>
-    <p>本篇介绍使用一台Ubuntu运行free5gc充当核心网，另一台Ubuntu主机运行OAI 的gNB和模拟UE。本次使用的Free5GC版本为最新的v3.4.2，OAI版本为2024w26。在Ubuntu 20.04.6LTS版本下，该流程可复现。</p>
+    <p>本篇介绍使用一台Ubuntu运行free5gc充当核心网，另一台Ubuntu主机运行OAI 的gNB和模拟UE。本次使用的Free5GC版本为最新的v3.4.2，OAI版本为2024w26。在Ubuntu 20.04.6LTS版本下，该流程可复现。另一套可复现的版本为【Free5GC：V3.3.0 + OAI RAN 2023.w50】。更推荐使用后者。</p>
 <h2 id="Free5gc配置"><a href="#Free5gc配置" class="headerlink" title="Free5gc配置"></a>Free5gc配置</h2><p>在开始前，一如既往进行转发设置：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sysctl -w net.ipv4.ip_forward=1</span><br><span class="line"><span class="built_in">sudo</span> iptables -t nat -A POSTROUTING -o &lt;上网网卡名称&gt; -j MASQUERADE</span><br><span class="line"><span class="built_in">sudo</span> systemctl stop ufw</span><br><span class="line"><span class="built_in">sudo</span> iptables -I FORWARD 1 -j ACCEPT</span><br></pre></td></tr></table></figure>
 
